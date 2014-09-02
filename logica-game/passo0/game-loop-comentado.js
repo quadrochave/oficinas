@@ -1,0 +1,41 @@
+        // Criação da instãncia  de jogo, inclusão de módulos e configurações
+	var Q = Quintus() 
+            .include()
+            .setup();            
+        
+      
+        //Á partir da classe Q.sprite cria-se um jogador como sub-classe
+        Q.Sprite.extend("Player",{
+            // função cosntrutura deve ser chamada na criação da classe
+            init: function(p) { 
+            },
+            step: function(dt) {  
+            }                    
+          });
+                       
+        // Cria e configura uma nova cena
+        Q.scene("level1",function(stage) {
+          
+	    // Cria o cenario de fundo
+            var background = new Q.TileLayer();
+	    // Inclui o cenário na fase
+            stage.insert(background);
+            
+            // Adiciona uma camada de tile e define a colisão
+	    stage.collisionLayer(new Q.TileLayer());
+
+	    var player = new Q.Player();
+	    stage.insert(player);
+          
+            // Ou: var player = stage.insert(new Q.Player());
+            
+            stage.add("viewport").follow(player);
+          
+        });
+        
+        
+        //load assets
+        Q.load("", function() {
+          Q.sheet("", { });          
+          Q.stageScene("level1");
+        });
